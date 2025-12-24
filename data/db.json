@@ -1,0 +1,60 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Admin Owner",
+      "email": "admin@trimtrack.com",
+      "role": "OWNER",
+      "passwordHash": "admin123",
+      "sharePercentage": 0,
+      "isActive": true,
+      "createdAt": "2025-12-24T11:53:31.527Z"
+    },
+    {
+      "id": "2",
+      "name": "John Doe",
+      "email": "john@trimtrack.com",
+      "role": "EMPLOYEE",
+      "passwordHash": "user123",
+      "sharePercentage": 50,
+      "paymentDeadlineDays": 7,
+      "isActive": true,
+      "createdAt": "2025-12-24T11:53:31.527Z"
+    }
+  ],
+  "transactions": [
+    {
+      "id": "20fbac91-ace5-4a1e-b1dd-926bd3b0a6af",
+      "userId": "2",
+      "date": "2025-12-24",
+      "amount": 150,
+      "employeeShare": 60,
+      "ownerShare": 90,
+      "status": "PENDING",
+      "note": "Busy day",
+      "createdAt": "2025-12-24T11:53:56.748Z"
+    },
+    {
+      "id": "1ecb4ef7-7944-4ca4-9e8d-69849dca521f",
+      "userId": "2",
+      "date": "2025-12-24",
+      "amount": 180,
+      "employeeShare": 72,
+      "ownerShare": 108,
+      "status": "PENDING",
+      "note": "",
+      "createdAt": "2025-12-24T12:09:30.646Z"
+    },
+    {
+      "id": "e04bf7cc-161a-4555-8182-65bfffc2ddd5",
+      "userId": "2",
+      "date": "2025-12-24",
+      "amount": 100,
+      "employeeShare": 40,
+      "ownerShare": 60,
+      "status": "PENDING",
+      "note": "",
+      "createdAt": "2025-12-24T12:18:33.903Z"
+    }
+  ]
+}
