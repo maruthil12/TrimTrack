@@ -19,7 +19,7 @@ echo NOTE: If this is your first time, you will be asked to:
 echo       1. Log in to Vercel (browser will open)
 echo       2. Confirm project settings (press Enter for defaults)
 echo.
-call npx vercel --prod
+call npx vercel --prod --yes
 if %errorlevel% neq 0 (
     echo Deployment failed.
     pause

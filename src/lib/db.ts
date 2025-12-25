@@ -67,20 +67,30 @@ export const db = {
     },
 
     async getUserByEmail(email: string): Promise<User | undefined> {
-        const { rows } = await sql`SELECT * FROM users WHERE email = ${email}`;
-        if (rows.length === 0) return undefined;
+        try {
+            console.log('DB: Looking up user by email:', email);
+            const { rows } = await sql`SELECT * FROM users WHERE email = ${email}`;
+            console.log('DB: Query returned', rows.length, 'rows');
 
-        const row = rows[0];
-        return {
-            id: row.id,
-            name: row.name,
-            email: row.email,
-            role: row.role as 'OWNER' | 'EMPLOYEE',
-            passwordHash: row.password_hash,
-            sharePercentage: row.share_percentage,
-            isActive: row.is_active,
-            createdAt: row.created_at
-        };
+            if (rows.length === 0) return undefined;
+
+            const row = rows[0];
+            console.log('DB: Found user:', row.email, 'Role:', row.role);
+
+            return {
+                id: row.id,
+                name: row.name,
+                email: row.email,
+                role: row.role as 'OWNER' | 'EMPLOYEE',
+                passwordHash: row.password_hash,
+                sharePercentage: row.share_percentage,
+                isActive: row.is_active,
+                createdAt: row.created_at
+            };
+        } catch (error) {
+            console.error('DB Error in getUserByEmail:', error);
+            throw error;
+        }
     },
 
     async getUserById(id: string): Promise<User | undefined> {
