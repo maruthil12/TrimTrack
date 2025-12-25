@@ -140,6 +140,27 @@ export const db = {
         return updatedUser ?? null;
     },
 
+    async createUser(user: Omit<User, 'createdAt'>): Promise<User> {
+        await sql`
+            INSERT INTO users (id, name, email, role, password_hash, share_percentage, is_active, created_at)
+            VALUES (
+                ${user.id},
+                ${user.name},
+                ${user.email},
+                ${user.role},
+                ${user.passwordHash},
+                ${user.sharePercentage},
+                ${user.isActive},
+                NOW()
+            )
+        `;
+        const createdUser = await this.getUserById(user.id);
+        if (!createdUser) {
+            throw new Error('Failed to create user');
+        }
+        return createdUser;
+    },
+
     async getTransactions(): Promise<Transaction[]> {
         const { rows } = await sql`
             SELECT t.*, u.name as user_name 
