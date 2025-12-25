@@ -1,12 +1,25 @@
 import { db as vercelDb } from '@vercel/postgres';
 import { User, Transaction } from './types';
 
+// Check if database is configured
+const isDatabaseConfigured = () => {
+    return !!(
+        process.env.POSTGRES_URL ||
+        process.env.POSTGRES_PRISMA_URL ||
+        process.env.POSTGRES_URL_NON_POOLING
+    );
+};
+
 // Use the sql helper from the db object for pooled connections
 const sql = vercelDb.sql;
 
 export const db = {
     // Initialize database tables
     async init() {
+        if (!isDatabaseConfigured()) {
+            throw new Error('Database not configured. Please set up Vercel Postgres environment variables.');
+        }
+
         try {
             // Create users table
             await sql`
@@ -52,6 +65,7 @@ export const db = {
             console.log('Database initialized successfully');
         } catch (error) {
             console.error('Database initialization error:', error);
+            throw error;
         }
     },
 
