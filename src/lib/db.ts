@@ -1,5 +1,8 @@
-import { sql } from '@vercel/postgres';
+import { db as vercelDb } from '@vercel/postgres';
 import { User, Transaction } from './types';
+
+// Use the sql helper from the db object for pooled connections
+const sql = vercelDb.sql;
 
 export const db = {
     // Initialize database tables
